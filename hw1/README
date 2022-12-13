@@ -1,0 +1,77 @@
+# Homework 1
+Gene sequencing
+Two files: one for the reference genome and the other for the reads
+
+## PART 2
+
+Test results:
+$python3 generatedata.py 1000 600 50 reference_file1.txt reads_file1.txt
+reference length:1000
+number of reads: 600
+read length: 50
+align0:0.15166666666666667
+align1:0.745
+align2:0.10333333333333333
+
+$python3 generatedata.py 10000 6000 50 reference_file2.txt reads_file2.txt 
+reference length:10000
+number of reads: 6000
+read length: 50
+align0:0.15066666666666667
+align1:0.748
+align2:0.10133333333333333
+
+$python3 generatedata.py 100000 60000 50 reference_file3.txt reads_file3.txt
+reference length:100000
+number of reads: 60000
+read length: 50
+align0:0.15075
+align1:0.7479
+align2:0.10135
+
+Answers to questions:
+1)
+-if the read_length is too long, it's not possible to generate reads that align twice with the reference
+-If 0.75*n is not an integer, than the replicated sequence in the reference will not be exactly 25% of the original reference,
+so we need to take some margin while generating reads that align twice
+-We don't deal with the fact that some of reads may align more than twice by chance, so there is an approximation here.
+
+2) We shouldn't expect an exact 75/15/10 % repartition because we are using the random module. 
+However, the bigger the reference length and the number of reads, the closest to an exact repartition we should be.
+
+3) Total time spent on this part (including office hours)= 2.5 hours
+
+##PART 3
+
+$python3 process.py reference_file1.txt reads_file1.txt alignment_file1.txt
+reference length: 1000
+number reads: 600
+align0: 0.15166666666666667
+align1: 0.745
+align2: 0.10333333333333333
+elapsed time: 0.010857343673706055
+
+$python3 process.py reference_file2.txt reads_file2.txt alignment_file2.txt
+reference length:10000
+number of reads: 6000
+read length: 50
+align0:0.15066666666666667
+align1:0.748
+align2:0.10133333333333333
+elapsed time: 0.27071642875671387
+
+$python3 process.py reference_file3.txt reads_file3.txt alignment_file3.txt
+reference length: 100000
+number reads: 60000
+align0:0.15075
+align1:0.7479
+align2:0.10135
+elapsed time:24.433661937713623
+
+1) Yes it matches exactly because we use the same files with the same reference and the same reads. The way of counting is similar in both programs.
+2) The program is not applicable to human genome because most of the reads of the human genome would repeat themselves more than twice. 
+However, my function count_n_align can count more than 2 alignments so it wouldn't be too hard to adapt the rest of the program in a more realistic way.
+The complexity of the program is O(reference_length x number of reads x read_length) so it would take too long with this program to process the whole human genome
+that has a length of approx 3 billion basis.
+3) Total time spent on this part: 3 hours (including 1.5 office hour)
+

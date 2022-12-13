@@ -1,0 +1,49 @@
+#README HW2
+Homework on movie ratings and the definition of a similarity measure
+Working with the data set from MovieLens project
+
+1) When creating the test data set, we should make sure to have all the following cases:
+    -one example where all the users gave the same rating to one movie --> denominator equals 0
+    -one example where the number of common users is smaller than the threshold 
+    -one example where the similarity equals 1 (or -1)
+    
+
+2) Decomposition of my code
+-Creation of a global dictionnary L that depicts all the data. 
+Keys: movie id. Values: dictionnary of {user:rating}
+-Creation of dictionnary dic_means.
+Keys: movie id. Values: mean of the ratings for this movie
+-Creation of dictionnary common_data that depicts the common users between each pair of movie. 
+Keys: tuple of 2 different movies. Values: set of common users
+This dictionnary was made using the function common_users(a,b,L)
+
+-Definition of the similarity function to compute the similarity 
+between 2 movies a and b.
+    Marginal cases to consider: 
+    -denominator equals 0: if all users rated one movie with the same grade, 
+    it doesn't really make sense to compare its similarity to another movie. 
+    So I consider there is no similar movie and set the value to -2
+    -number of common_users < threshold: the similarity would not be accurate 
+    as there are not enough common raters on these movies. Again, the value is set to -2
+
+
+3) Running the program 
+alkopff@rice09:/farmshare/user_data/alkopff/cme211-alkopff/hw2
+$ python3 similarity.py ml-100k/u.data similarities.txt 5
+Input MovieLens file: ml-100k/u.data
+Output file for similarity data: similarities.txt
+Minimum number of common users: 5
+Read 100000 lines with total of 1682 movies and 943 users
+Similarities computed in 57.26968693733215seconds
+
+Head of the output file similarities.txt:
+1 (918, 0.910504658607, 5)
+2 (1056, 0.999980576678, 5)
+3 (1081, 0.977052393663, 5)
+4 (35, 0.803500189941, 6)
+5 (976, 0.933079563203, 5)
+6 (279, 0.959756507337, 5)
+7 (968, 0.997420592235, 7)
+8 (590, 0.864693730765, 6)
+9 (113, 0.964494305252, 5)
+10 (1202, 0.972429410443, 5)

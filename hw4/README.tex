@@ -1,0 +1,52 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+
+\title{README}
+\author{Homework 4}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+In this assignment, we want to compute the forces inside each beam of a truss. We are given data files about the truss and we are applying the joints methods to compute each beam force knowing the external forces applied to each joint.
+
+To do this, I create a system and solve it with the scipy method spsolve. To make the program more efficient, the matrix used will be a CSR sparse matrix. 
+
+\section{Description of the Truss class}
+
+\subsection{Methods}
+
+I defined the init method and 5 additonal methods that describe one instance of the Truss class.
+\begin{itemize}
+\item \_{}init\_ \(self, files\) : loads the data, plots the truss geometry when an output file is given, creates the system and solves it when possible
+\item PlotGeometry \(self, output\_file\): when an output file is given, this method creates a png image of the plot of the truss geometry and saves it in the output file
+\item read\_ \(self\) data: reads the input data files and creates one array for the beams data and one array for the joints data
+\item create\_system \(self\) : creates the system Ax=b that we need to solve to find the beam forces. The solution will be a vector containing the beam forces and the projection of the reaction forces for the rigidly supported joints.
+\item solve\_system \(self\): solves the system when the geometry is suitable and the matrix is not singular. Raises error otherwise. 
+\item \_{repr}\_ \(self\) : prints the output table with one column for the beams and the other one with the associated beam forces
+\end{itemize}
+
+
+
+
+
+\subsection{Errors raised}
+
+There are two cases where the beam forces can't be computed.
+\begin{itemize}
+\item When the number of unknowns is not equal to the number of equations, the system is overdetermined or underdetermined. We can't compute a unique solution to our system. The program raises an error saying that the geometry is not suitable for the joints method analysis.
+\item When the matrix A obtained is singular. The program will raise an error saying that the truss is probably unstable.
+\end{itemize}
+
+
+\end{document}
