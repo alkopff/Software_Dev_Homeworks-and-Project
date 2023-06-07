@@ -1,0 +1,31 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{algorithm} 
+\usepackage{algpseudocode} 
+\begin{document} 
+\begin{algorithm}
+	\caption{CGSolver} 
+	\begin{algorithmic}[1]
+            \State Initialize $u_{0}$
+            \State $r_{0}$ = $b$ - A$u_{0}$
+            \State L2normr0 = L2norm($r_{0}$)
+            \State $p_{0}$ = $r_{0}$
+            \State niter = 0
+                \While {niter < nitermax}
+                    \State niter = niter + 1
+                    \State $alpha$ = ($r_{n}^{T}$ $r_{n}$) / ($p_{n}^{T}$ A$p_{n}$)
+                    \State $u_{n+1}$ = $u_{n}$ + $alpha_{n}$ A $p_{n}$
+                    \State $r_{n+1}$ = $r_{n}$ - $alpha_{n}$ A $p_{n}$
+                    \State L2normr = L2norm($r_{n+1}$)
+                        \If {L2normr/L2normr0 < threshold}
+                            \State \textbf{break}
+                            \EndIf
+                    \State $beta_{n}$ = ($r_{n+1}^{T}$ $r_{n+1}$) / ($r_{n}^{T}$ $r_{n}$)
+                    \State $p_{n+1}$ = $r_{n+1}$ + $beta_{n} p_{n}$
+                     
+	\end{algorithmic} 
+\end{algorithm} 
+
+  In matvecops.cpp, I defined a few functions for usual operations on vectors and matrices: sum of two vectors, difference of two vectors, dot product of two vectors, scalar product of a float and a vector, L2 norm of a vector and matrix-vector product. 
+    These functions are then called directly in the CGSolver algorithm so that the code is easier to read.  
+
+\end{document}
